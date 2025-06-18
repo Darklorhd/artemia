@@ -16,7 +16,7 @@ const toggleMenu = () => {
             <ul className="hidden md:flex gap-10 font-semibold cursor-pointer">
                 <li>Home</li>
                 <li>Dashboard</li>
-                <li>Project</li>
+                <li>Product</li>
                 <li>Profile</li>
             </ul>
             <p className="hidden md:block h-[30px] w-[80px] bg-blue-400 text-white text-center rounded-lg">Login</p>
