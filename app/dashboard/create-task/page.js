@@ -1,20 +1,41 @@
 "use client"
+import { db } from "@/config/firbase.config";
 import { Button, Card, CardContent, CardHeader, TextField } from "@mui/material";
+import { addDoc, collection } from "firebase/firestore";
 import { useFormik } from "formik";
+import { useSession } from "next-auth/react";
 import * as yup from "yup";
+
 
 const schema = yup.object().shape({
     title : yup.string().required("Tittle is required").min(5),
     description: yup.string().required("Description is required").min(10)
 })
 
-export default function CreateTask(){
+export default function CreateTask({userId}){
+    const {data : session }=useSession();
+        console.log(session)
+        const userIdentifier2 = userId || (session?.user?.id)
+
     const {handleSubmit, handleChange, touched, values, errors } = useFormik({
         initialValues: {
             title: "",
             description: "",
         },
-        onSubmit: ()=>{},
+        onSubmit: async()=>{
+            await addDoc(collection(db, "tasks"),{
+                user : userIdentifier2,
+                title: values.title,
+                description: values.description,
+                timecreated : new Date().getTime(),
+            }).then(()=>{
+                alert("Task added")
+              })
+              .catch(e=>{
+                console.error(e);
+                alert("You encountered an unknown error")
+              });
+        },
         validationSchema: schema,
 
     })
