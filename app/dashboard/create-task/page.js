@@ -40,7 +40,8 @@ export default function CreateTask({userId}){
 
     })
     return(
-        <Card sx={{maxWidth:600, margin:"auto", mt:5, p:3}}>
+       <div className="min-h-screen"> 
+         <Card sx={{maxWidth:600, margin:"auto", mt:5, p:3}}>
             <CardHeader title="Add Task"/>
             <CardContent>
                 <form onSubmit={handleSubmit} 
@@ -73,5 +74,6 @@ export default function CreateTask({userId}){
                 </form>
             </CardContent>
         </Card>
+       </div>
     )
 }
